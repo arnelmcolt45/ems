@@ -1,0 +1,48 @@
+<div class="kt-portlet">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-label">
+            <h3 class="kt-portlet__head-title">
+                    {{"AssetComponents" | localize}}
+            </h3>
+        </div>
+        <div class="kt-portlet__head-toolbar">
+            <button *ngIf="'Pages.Main.AssetParts.ManagePartTree' | permission" (click)="importPart()" class="btn btn-primary">
+                <i class="fa fa-plus"></i> {{"ImportComponent" | localize}}
+            </button>
+        </div>
+    </div>
+    <div class="kt-portlet__body">
+        <p-tree [value]="treeData"
+                selectionMode="single"
+                [(selection)]="selectedAp"
+                (onNodeSelect)="nodeSelect($event)"
+                (onNodeDrop)="nodeDrop($event)"
+                [contextMenu]="partContextMenu"
+                [draggableNodes]="canManageAssetParts" [droppableNodes]="canManageAssetParts">
+            <ng-template let-node pTemplate="default">
+                <div>
+
+                        <span *ngIf="node.data.isItem" style="color: cadetblue;"  (contextmenu)="nodeMenu($event, node)">
+                            {{node.label}} ({{node.data.qty}})
+                        </span>
+                        <span *ngIf="!node.data.isItem"  (contextmenu)="nodeMenu($event, node)">
+                            {{node.label}}
+                        </span>
+
+                </div> 
+            </ng-template>
+        </p-tree>
+
+        <p-contextMenu #partContextMenu [model]="apContextMenuItems" appendTo="body" baseZIndex="99999"></p-contextMenu>
+        <div *ngIf="!totalPartCount" class="text-muted">
+            {{"NoComponentsDefinedYet" | localize}}
+        </div>
+    </div>
+</div>
+ 
+<createOrEditAssetPartModal #createOrEditAssetPartModal (partCreated)="partCreated($event)" (partUpdated)="partUpdated($event)" [assetReference]="assetReference" [isItem]="isItem" [assetId]="assetId"></createOrEditAssetPartModal>
+<entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>
+<viewAssetPartModal #viewAssetPartModalComponent></viewAssetPartModal>
+<moveToAssetLookupTableModal #moveToAssetLookupTableModalComponent (assetPartMovedToAsset)="reload()"></moveToAssetLookupTableModal>
+<moveToWarehouseLookupTableModal #moveToWarehouseLookupTableModalComponent (assetPartMovedToWarehouse)="reload()"></moveToWarehouseLookupTableModal>
+<importAssetPartLookupTableModal #importAssetPartLookupTableModalComponent (assetPartImported)="reload()" ></importAssetPartLookupTableModal>

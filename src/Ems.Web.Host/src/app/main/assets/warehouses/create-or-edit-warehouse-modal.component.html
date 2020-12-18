@@ -1,0 +1,63 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #warehouseForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="warehouse.id">{{l("EditWarehouse")}}</span>
+                        <span *ngIf="!warehouse.id">{{l("CreateNewWarehouse")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="Warehouse_Name">{{l("Name")}} *</label>
+									<input type="text" id="Warehouse_Name" class="form-control" [(ngModel)]="warehouse.name" name="Name"     required/>
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_AddressLine1">{{l("AddressLine1")}}</label>
+									<input type="text" id="Warehouse_AddressLine1" class="form-control" [(ngModel)]="warehouse.addressLine1" name="AddressLine1"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_AddressLine2">{{l("AddressLine2")}}</label>
+									<input type="text" id="Warehouse_AddressLine2" class="form-control" [(ngModel)]="warehouse.addressLine2" name="AddressLine2"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_PostalCode">{{l("PostalCode")}}</label>
+									<input type="text" id="Warehouse_PostalCode" class="form-control" [(ngModel)]="warehouse.postalCode" name="PostalCode"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_City">{{l("City")}}</label>
+									<input type="text" id="Warehouse_City" class="form-control" [(ngModel)]="warehouse.city" name="City"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_State">{{l("State")}}</label>
+									<input type="text" id="Warehouse_State" class="form-control" [(ngModel)]="warehouse.state" name="State"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Warehouse_Country">{{l("Country")}}</label>
+									<input type="text" id="Warehouse_Country" class="form-control" [(ngModel)]="warehouse.country" name="Country"    />
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!warehouseForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

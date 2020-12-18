@@ -1,0 +1,79 @@
+<div bsModal #inviteModal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="inviteModal" aria-hidden="true" [config]="{backdrop: 'static', keyboard: !saving}">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <form #tenantCreateForm="ngForm" role="form" novalidate class="form-validation" *ngIf="active"
+                  (submit)="save()">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <span>{{"InviteNewCustomer" | localize}}</span>
+                    </h5>
+                    <button type="button" class="close" (click)="close()" [attr.aria-label]="l('Close')"
+                            [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <p>If this Customer already exists in Xero, please ensure that this name matches the Xero Contact Name</p>
+                        <label for="Name">{{"CustomerName" | localize}} *</label>
+                        <input id="Name" #nameInput="ngModel" type="text" name="Name" class="form-control"
+                               [ngClass]="{'edited':tenant.name}" [(ngModel)]="tenant.name" required maxlength="128">
+                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                    </div>
+
+                    <div class="form-group">
+                        <p>If this Customer does not need to log into Quiptrix, simply enrole yourself as the customer using your own email address</p>
+                        <label for="AdminEmailAddress">{{"CustomerAdminEmailAddress" | localize}} *</label>
+                        <input id="AdminEmailAddress" #adminEmailAddressInput="ngModel" type="email"
+                               name="AdminEmailAddress" class="form-control" [(ngModel)]="tenant.adminEmailAddress"
+                               [ngClass]="{'edited':tenant.adminEmailAddress}" required
+                               pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" maxlength="256">
+                        <validation-messages [formCtrl]="adminEmailAddressInput"></validation-messages>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CurrencyCode">{{l("Currency")}} *</label>
+                        <div class="input-group">
+                            <input class="form-control" id="CurrencyCode" name="currencyCode" [(ngModel)]="currencyCode"
+                                   type="text" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectCurrencyModal()" type="button">
+                                    <i class="fa fa-search"></i> {{l("Pick")}}
+                                </button>
+                            </div>
+                            <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setCurrencyIdNull()">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="id" [(ngModel)]="tenant.currencyId" type="text"
+                           required hidden>
+                </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" [disabled]="saving" class="btn btn-secondary"
+                            (click)="close()">
+                        {{"Cancel" | localize}}
+                    </button>
+                    <button type="submit" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"
+                            class="btn btn-primary"
+                            [disabled]="!tenantCreateForm.form.valid || saving || !subscriptionEndDateIsValid()">
+                        <i class="fa fa-save"></i> <span>{{"Save" | localize}}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <customerCurrencyLookupTableModal #customerCurrencyLookupTableModal (modalSave)="getNewCurrencyId()">
+    </customerCurrencyLookupTableModal>
+</div>

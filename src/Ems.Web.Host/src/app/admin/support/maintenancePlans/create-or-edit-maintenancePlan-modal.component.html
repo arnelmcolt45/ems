@@ -1,0 +1,74 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #maintenancePlanForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="maintenancePlan.id">{{l("EditMaintenancePlan")}}</span>
+                        <span *ngIf="!maintenancePlan.id">{{l("CreateNewMaintenancePlan")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="WorkOrderPriorityPriority">{{l("WorkOrderPriority")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="WorkOrderPriorityPriority" name="workOrderPriorityPriority" [(ngModel)]="workOrderPriorityPriority" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectWorkOrderPriorityModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setWorkOrderPriorityIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="maintenancePlan.workOrderPriorityId" [(ngModel)]="maintenancePlan.workOrderPriorityId" type="text"  hidden>
+		 
+					<div class="form-group m-form__group">
+                        <label for="WorkOrderTypeType">{{l("WorkOrderType")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="WorkOrderTypeType" name="workOrderTypeType" [(ngModel)]="workOrderTypeType" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectWorkOrderTypeModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setWorkOrderTypeIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="maintenancePlan.workOrderTypeId" [(ngModel)]="maintenancePlan.workOrderTypeId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="MaintenancePlan_Subject">{{l("Subject")}} *</label>
+									<input type="text" #MaintenancePlan_Subject="ngModel" id="MaintenancePlan_Subject" class="form-control" [(ngModel)]="maintenancePlan.subject" name="Subject"     required/>
+								    <validation-messages [formCtrl]="MaintenancePlan_Subject"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="MaintenancePlan_Description">{{l("Description")}}</label>
+									<input type="text" #MaintenancePlan_Description="ngModel" id="MaintenancePlan_Description" class="form-control" [(ngModel)]="maintenancePlan.description" name="Description"    />
+								    <validation-messages [formCtrl]="MaintenancePlan_Description"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="MaintenancePlan_Remarks">{{l("Remarks")}}</label>
+									<input type="text" #MaintenancePlan_Remarks="ngModel" id="MaintenancePlan_Remarks" class="form-control" [(ngModel)]="maintenancePlan.remarks" name="Remarks"    />
+								    <validation-messages [formCtrl]="MaintenancePlan_Remarks"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!maintenancePlanForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<maintenancePlanWorkOrderPriorityLookupTableModal #maintenancePlanWorkOrderPriorityLookupTableModal (modalSave)="getNewWorkOrderPriorityId()"></maintenancePlanWorkOrderPriorityLookupTableModal>
+		 <maintenancePlanWorkOrderTypeLookupTableModal #maintenancePlanWorkOrderTypeLookupTableModal (modalSave)="getNewWorkOrderTypeId()"></maintenancePlanWorkOrderTypeLookupTableModal>
+		 
+</div>

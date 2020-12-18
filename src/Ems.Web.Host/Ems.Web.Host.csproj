@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <Import Project="..\..\common.props"></Import>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Ems.Web.Host</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Ems.Web.Host</PackageId>
+    <UserSecretsId>MyCompanyName-Ems-894FDFC1-6482-4A56-926A-3C46C9FE0329</UserSecretsId>
+    <RootNamespace>Ems.Web</RootNamespace>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="App_Data\**" />
+    <Content Remove="App_Data\**" />
+    <EmbeddedResource Remove="App_Data\**" />
+    <None Remove="App_Data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="app.config" />
+    <Content Remove="appsettings.ems-prd-00.json" />
+    <Content Remove="appsettings.json" />
+    <Content Remove="appsettings.Local.json" />
+    <Content Remove="appsettings.PondusOps.json" />
+    <Content Remove="appsettings.Production - ems-dev-01.json" />
+    <Content Remove="appsettings.Production-old.json" />
+    <Content Remove="appsettings.Quiptrix.json" />
+    <Content Remove="appsettings.Staging.json" />
+    <Content Remove="src\assets\appconfig copy.json" />
+    <Content Remove="src\assets\appconfig.json" />
+    <Content Remove="src\assets\appconfig.production copy.json" />
+    <Content Remove="src\assets\appconfig.production.json" />
+    <Content Remove="wwwroot\swagger\ui\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="appsettings.ems-prd-00.json" />
+    <None Include="appsettings.json" />
+    <None Include="appsettings.Local.json" />
+    <None Include="appsettings.PondusOps.json" />
+    <None Include="appsettings.Production - ems-dev-01.json" />
+    <None Include="appsettings.Production-old.json" />
+    <None Include="appsettings.Quiptrix.json" />
+    <None Include="appsettings.Staging.json" />
+    <None Include="src\assets\appconfig copy.json" />
+    <None Include="src\assets\appconfig.json" />
+    <None Include="src\assets\appconfig.production copy.json" />
+    <None Include="src\assets\appconfig.production.json" />
+    <None Include="wwwroot\Plugins\.gitkeep" />
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+    <None Update="wwwroot\**\*">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ems.Web.Core\Ems.Web.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="2.2.32" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="4.9.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\swagger\ui\index.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\Plugins\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="dist\**" />
+    <Compile Remove="external_libs\**" />
+    <Compile Remove="node_modules\**" />
+    <EmbeddedResource Remove="dist\**" />
+    <EmbeddedResource Remove="external_libs\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="dist\**" />
+    <None Remove="external_libs\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+  
+  <!-- #### IMPORTANT NOTE: If you uncomment the following section, remove the spaces between the two dashes in '- -max', '- -prod' and '- -build-optimizer' -->
+  <!--
+    <Target Name="PrepublishScript" BeforeTargets="ComputeFilesToPublish">
+    
+      <Exec Command="node - -max_old_space_size=8192 node_modules/@angular/cli/bin/ng build - -prod - -build-optimizer" /> 
+      <ItemGroup>
+        <DistFiles Include="wwwroot\**\*" />
+        <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+          <RelativePath>%(DistFiles.Identity)</RelativePath>
+          <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </ResolvedFileToPublish>
+      </ItemGroup>
+    </Target>                     
+  -->                     
+  
+  <PropertyGroup Label="Globals">
+    <SccProjectName>%24/tfsexternalprojects/Quiptrix_20200722/src/Ems.Web.Host</SccProjectName>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <SccAuxPath>https://dev.azure.com/cindiexternalprojects</SccAuxPath>
+    <SccLocalPath>.</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+</Project>
